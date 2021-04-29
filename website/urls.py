@@ -84,7 +84,7 @@ urlpatterns = [
     url(r'^upload/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url("api-docs/", include_docs_urls("API文档")),
+    #url("api-docs/", include_docs_urls("API文档")),
     url(r'api/login/$', obtain_jwt_token),  # jwt认证
     url(r'^api-token-refresh/', refresh_jwt_token),#jwt刷新
     path('auth-qq', to_login, name='qq-login'),

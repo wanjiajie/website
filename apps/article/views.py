@@ -180,7 +180,7 @@ def ArticleUpdate(request,article_id):
         try:
             article = Article.objects.get(id=article_id)
         except Exception:
-            return Http404
+            raise Http404
         return render(request, 'pc/article_update.html', {'article': article, 'category': category})
     if request.method == 'POST':
         form = Article_form(request.POST,request.FILES)
@@ -258,12 +258,14 @@ def Article_detail(request,article_id):
     """
     try:
         article=Article.objects.get(id=article_id)
+        print(article)
         id = article.category.id
+        print(article.category.id)
         article.click_nums+=1
+        print(article.click_nums)
         article.save()
     except Exception:
-        return Http404
-
+        raise Http404
     content = Article.objects.filter(category_id=id).exclude(id=article_id).order_by('-click_nums')[:10]
     #print(content.annotate())
     return render(request,'pc/article_detail.html',{'article':article,'id':article_id,'content':content})

@@ -137,7 +137,7 @@ def removeApi():
     # 前一周日期
     day = cur_date - datetime.timedelta(days=7)
     print("=======正在删除7天前数据======")
-    # 查询前一周数据,也可以用range,我用的是glt,lte大于等于
+    # 查询前一周数据
     Headlines.objects.filter(create_time__lte=day).delete()
     print('======已删除=========')
 
@@ -168,7 +168,7 @@ def backups():
         text_content = '每天网站数据库备份文件.'
         html_content = '<p>这是一封<strong>每天网站数据库备份的文件</strong>.</p>'
         from_email = settings.EMAIL_NAME
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [settings.ERROR_FROM])
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [settings.ERROR_TO])
         msg.attach_alternative(html_content, "text/html")
         # 发送附件
         print('********************发送附件********************')

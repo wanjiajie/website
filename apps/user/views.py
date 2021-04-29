@@ -156,8 +156,8 @@ class Register(View):
             token = token_confirm.generate_validate_token(username)
             message = "\n".join([u'{0},欢迎加入我的博客'.format(username), u'请访问该链接，完成用户验证,该链接1个小时内有效',
                                  '/'.join([settings.DOMAIN, 'activate', token])])
-            #send_mail(u'注册用户验证信息', message, settings.EMAIL_HOST_USER, [email], fail_silently=False)
-            send_register_email.delay(email=email,username=username,token=token,send_type="register")
+            send_mail(u'注册用户验证信息', message, settings.EMAIL_HOST_USER, [email], fail_silently=False)
+            #send_register_email.delay(email=email,username=username,token=token,send_type="register")
             return JsonResponse({'valid':True,'status':200, 'message': u"请登录到注册邮箱中验证用户，有效期为1个小时"})
         return JsonResponse({'status':400,'data':form.errors,'valid':False})
 
